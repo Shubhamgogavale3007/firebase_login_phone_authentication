@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_integration/dashboard_screen.dart';
-import 'package:firebase_integration/otp_screen/otp_screen.dart';
 import 'package:firebase_integration/utils/utils_class.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 import '../enter_phone_no/enter_phone_no.dart';
@@ -31,12 +30,14 @@ class _LoginScreenState extends State<LoginScreen> {
         .createUserWithEmailAndPassword(
         email: emailController.text.toString(),
         password: passwordController.text.toString()).then((value) {
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> DashboardScreen()));
-    })
-        .catchError((e) {
+      Navigator.push(context,MaterialPageRoute(builder: (context)=> const DashboardScreen()));
+    }).onError((error, stackTrace){
+      Utils().toastMessage(error.toString());
+    });
+        /*.catchError((e) {
       Utils().toastMessage(e.toString());
       print("error- "+e.toString());
-    });
+    });*/
   }
   @override
   Widget build(BuildContext context) {
@@ -52,30 +53,30 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 0,
             ),
-            Text(
+            const Text(
               'Login Here',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800),
             ),
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
             TextField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'Enter E-mail'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextField(
               controller: passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'Enter Password'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             SizedBox(
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             const Row(
@@ -126,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             SizedBox(
@@ -141,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => EnterPhoneScreen()));
+                            builder: (context) => const EnterPhoneScreen()));
                   },
                   child: const Text(
                     "Login with phone",
